@@ -20,8 +20,5 @@ export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
       return e;
     }
   });
-  fastify.get("/", async (req, res) => {
-    return "hello";
-  });
   done();
 }
