@@ -13,13 +13,13 @@
     "start:dev": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts"
   },
   "dependencies": {
+    "@types/uuid": "^8.3.4",
     "fastify": "^3.24.1",
     "fastify-request-context": "^2.2.0",
     "knex": "^0.95.14",
     "knex-pg": "^0.0.10",
     "pg": "^8.7.1",
-    "ts-node": "^10.4.0",
-    "uuid": "^8.3.2"
+    "ts-node": "^10.4.0"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
