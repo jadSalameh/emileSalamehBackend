@@ -2,9 +2,9 @@ export default {
   development: {
     client: "postgresql",
     connection: {
-      database: "dbName",
-      user: "dbUser",
-      password: "pass123123",
+      database: "emilesalameh",
+      user: "postgres",
+      password: "123pass123",
     },
     migrations: {
       tableName: "knex_migrations",

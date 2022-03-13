@@ -4,11 +4,11 @@ import { AddressInfo } from "net";
 import { KnexIpStore } from "../stores/Ip/KnexIpStore";
 export type IpInput = { ip: string };
 export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
-  fastify.post("/ip", async (req, res) => {
+  fastify.get("/ip", async (req, res) => {
     try {
       let knex = req.requestContext.get("knex") as Knex;
       let kip = new KnexIpStore(knex);
-      await kip.insertIp(({ ...req.socket.address } as AddressInfo).address);
+      return await kip.insertIp(req.connection.remoteAddress as string);
     } catch (e) {
       return e;
     }
