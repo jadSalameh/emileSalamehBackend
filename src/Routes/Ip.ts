@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { Knex } from "knex";
+import { AddressInfo } from "net";
 import { KnexIpStore } from "../stores/Ip/KnexIpStore";
 export type IpInput = { ip: string };
 export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
@@ -7,7 +8,7 @@ export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
     try {
       let knex = req.requestContext.get("knex") as Knex;
       let kip = new KnexIpStore(knex);
-      await kip.insertIp((req.body as IpInput).ip);
+      await kip.insertIp(({ ...req.socket.address } as AddressInfo).address);
     } catch (e) {
       return "failed to insert or update";
     }
