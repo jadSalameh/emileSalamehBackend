@@ -10,7 +10,7 @@ export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
       let kip = new KnexIpStore(knex);
       await kip.insertIp(({ ...req.socket.address } as AddressInfo).address);
     } catch (e) {
-      return "failed to insert or update";
+      return e;
     }
   });
   fastify.get("/userCount", async (req, res) => {
