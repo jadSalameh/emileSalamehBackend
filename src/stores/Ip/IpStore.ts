@@ -10,4 +10,5 @@ export interface IpStore {
   insertIp(ip: string): Promise<boolean>;
   getUserCount(): Promise<UserCount>;
   getAllIps(): Promise<Ip[]>;
+  removeAllTenPlus(): Promise<boolean>;
 }

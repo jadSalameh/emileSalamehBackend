@@ -11,6 +11,14 @@ export class KnexIpStore implements IpStore {
   constructor(knex: Knex) {
     this.knex = knex;
   }
+  async removeAllTenPlus(): Promise<boolean> {
+    try {
+      await this.knex<KnexIp>("Ips").where("count", ">", 10).delete();
+      return true;
+    } catch {
+      return false;
+    }
+  }
   async getAllIps(): Promise<Ip[]> {
     try {
       return (await this.knex<KnexIp>("Ips").select()).map((e) => this.toIp(e));
