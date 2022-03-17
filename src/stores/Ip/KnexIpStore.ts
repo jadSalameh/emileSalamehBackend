@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import { v4 as uuid } from "uuid";
-import { IpStore, UserCount } from "./IpStore";
+import { Ip, IpStore, UserCount } from "./IpStore";
 interface KnexIp {
   id: string;
   ip: string;
@@ -10,6 +10,13 @@ export class KnexIpStore implements IpStore {
   knex: Knex;
   constructor(knex: Knex) {
     this.knex = knex;
+  }
+  async getAllIps(): Promise<Ip[]> {
+    try {
+      return (await this.knex<KnexIp>("Ips").select()).map((e) => this.toIp(e));
+    } catch (e) {
+      throw e;
+    }
   }
   async insertIp(ip: string): Promise<boolean> {
     try {
@@ -40,5 +47,11 @@ export class KnexIpStore implements IpStore {
     } catch (e) {
       throw e;
     }
+  }
+  toIp(ki: KnexIp): Ip {
+    return {
+      count: ki.count,
+      ip: ki.ip,
+    };
   }
 }
