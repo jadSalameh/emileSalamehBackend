@@ -13,7 +13,7 @@ export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
       return e;
     }
   });
-  fastify.get("allIps", async (req, res) => {
+  fastify.get("/allIps", async (req, res) => {
     try {
       let knex = req.requestContext.get("knex") as Knex;
       let kip = new KnexIpStore(knex);
