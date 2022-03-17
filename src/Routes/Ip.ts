@@ -17,7 +17,7 @@ export function ipRoutes(fastify: FastifyInstance, options: any, done: any) {
     try {
       let knex = req.requestContext.get("knex") as Knex;
       let kip = new KnexIpStore(knex);
-      res.send(await kip.getAllIps);
+      res.send(await kip.getAllIps());
     } catch (e) {
       return e;
     }
