@@ -8,7 +8,7 @@ import knex from "knex";
 import { ipRoutes } from "./Routes/Ip";
 
 const server = fastify({ logger: true });
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4023;
 server.register(fastifyRequestContextPlugin, {
   defaultStoreValues: {
     knex: knex(process.env.PORT ? knexfile.production : knexfile.development),

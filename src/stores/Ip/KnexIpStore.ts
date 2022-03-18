@@ -5,6 +5,7 @@ interface KnexIp {
   id: string;
   ip: string;
   count: number;
+  lastVisit: Date;
 }
 export class KnexIpStore implements IpStore {
   knex: Knex;
@@ -31,12 +32,14 @@ export class KnexIpStore implements IpStore {
       let knexIp = this.knex<KnexIp>("Ips");
       let ki = await knexIp.select().where({ ip }).first();
       if (ki) {
-        await knexIp.update({ count: ki.count + 1 });
+        await knexIp.update({ count: ki.count + 1, lastVisit: new Date() });
         return true;
       } else {
         return (
           (
-            await knexIp.insert({ id: uuid(), count: 1, ip }).returning("*")
+            await knexIp
+              .insert({ id: uuid(), count: 1, ip, lastVisit: new Date() })
+              .returning("*")
           )[0] != null
         );
       }
@@ -60,6 +63,7 @@ export class KnexIpStore implements IpStore {
     return {
       count: ki.count,
       ip: ki.ip,
+      lastVisit: ki.lastVisit,
     };
   }
 }
